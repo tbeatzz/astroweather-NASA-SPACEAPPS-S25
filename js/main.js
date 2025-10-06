@@ -7,8 +7,7 @@ import { fetchOpenMeteoData } from "./modules/openMeteoService.js";
 import { fetchNasaAverage } from "./modules/nasaPowerService.js";
 import { renderWeatherData } from "./modules/dataRender.js";
 import { analyzeSportConditions } from "./modules/sportAnalyzer.js";
-import { renderNasaGraph } from "./modules/nasaGraph.js"; // ✅ nuevo módulo gráfico
-
+import { renderNasaGraph } from "./modules/nasaGraph.js"; 
 import { getDiffDays } from "./modules/utils.js";
 
 let currentLocation = null;
@@ -151,9 +150,19 @@ function exportJSON() {
     return;
   }
 
+  // Crear datos limpios sin rawData y con valores absolutos
+  const cleanWeatherData = {
+    temperature: weatherData.temperature,
+    humidity: weatherData.humidity,
+    wind: typeof weatherData.wind === 'number' ? Math.abs(weatherData.wind) : weatherData.wind,
+    rainProbability: weatherData.rainProbability,
+    // Excluir rawData - no es útil para usuarios finales
+    ...(weatherData.sourceInfo && { sourceInfo: weatherData.sourceInfo })
+  };
+
   const dataToExport = {
     location: currentLocation,
-    weather: weatherData,
+    weather: cleanWeatherData,
     timestamp: new Date().toISOString(),
     source: "AstroWeather NASA Space Apps Challenge"
   };

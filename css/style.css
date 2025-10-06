@@ -165,6 +165,7 @@ body {
   --bs-btn-hover-border-color: #0284c7;
   color: #fff;
   font-weight: 600;
+  
 }
 
 
@@ -660,8 +661,65 @@ body {
     color: white;
 }
 
+.container-equipo{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    
+}
+
+
+
+.container-equipo-texto{
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    flex-direction:column;
+    width: 400px;
+    font-weight: 400;
+}
+.container-equipo-imagen{
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.container-equipo-imagen img{
+
+}
+
+/* ============= RESPONSIVE DESIGN ============= */
+@media (max-width: 460px) {
+.container-equipo-imagen img{
+    height: 200px;
+}
+    .container-equipo-texto{
+        width: 300px;
+    }
+}
+
+
 /* ============= RESPONSIVE DESIGN ============= */
 @media (max-width: 768px) {
+.container-equipo-imagen img{
+    max-height: 600px;
+}
+    .container-equipo-texto{
+    align-items: center;
+}
+
+    .container-equipo{
+        padding-left: 3rem;
+        padding-right: 3rem;
+    }
+
+
+    .container-equipo-texto{
+        width: 450px;
+}
+
     .dashboard-title {
         font-size: 2rem;
     }
@@ -796,7 +854,7 @@ body {
 
 /** ESTILOS GOOGLE TRANSLATE **/
 #google_translate_element{
-    background-color: red;
+    background-color: transparent;
 }
 .card {
   display: flex;
@@ -892,4 +950,44 @@ p {
 
 .panel-title{
      color: #82cfff;
+}
+
+.form-map div:nth-child(1){
+    
+}
+
+.form-map{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+.input-container{
+    display: flex;
+   align-items: center;
+}
+
+
+
+
+.fecha-input{
+    
+    display: block;
+    
+}
+
+.hora-input{
+    
+    
+}
+.btn-form{
+    height: 37.6px;
+    width: 100%;
+    
+}
+
+.exportbtn{
+    color: white;
+    font-weight: 700;
 }

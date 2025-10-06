@@ -37,7 +37,7 @@ export async function fetchOpenMeteoData(lat, lon, date, hour) {
     return {
       temperature: data.hourly.temperature_2m[idx],
       humidity: data.hourly.relative_humidity_2m[idx],
-      wind: data.hourly.windspeed_10m[idx],
+      wind: Math.abs(data.hourly.windspeed_10m[idx]),
       rainProbability: data.hourly.precipitation_probability[idx]
     };
 

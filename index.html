@@ -56,7 +56,10 @@
                             <a class="nav-link" href="#dashboard">Clima</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#sobre-nosotros">Sobre Nosotros</a>
+                            <a class="nav-link" href="#acerca-de">Acerca de</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#equipo">Sobre el Equipo</a>
                         </li>
                         <li class="nav-item dropdown">
                             <div id="google_translate_element"></div>
@@ -92,10 +95,8 @@
                         <h1 class="display-3 hero-title">ASTRO WEATHER</h1>
                         <p class="lead hero-sub"><i>Predice lo Impredecible</i></p>
                         <div class="d-flex gap-3 justify-content-center mt-4">
-                            <a href="#clima" class="btn btn-astro btn-lg" aria-label="Ir a la sección de clima">Ver
+                            <a href="#dashboard" class="btn btn-astro btn-lg" aria-label="Ir a la sección de clima">Ver
                                 Clima</a>
-                            <a href="#sobre" class="btn btn-outline-light btn-lg"
-                                aria-label="Ir a la sección sobre nosotros">Conócenos</a>
                         </div>
                     </div>
                 </div>
@@ -107,285 +108,330 @@
             <div class="container">
 
                 <!-- Dashboard Header - Div largo con título, hora y fecha -->
-                <div class="dashboard-header">
-                    <div class="row align-items-center">
+                <div class="dashboard-header mb-0 p-0">
+                    <div class="row align-items-center p-4">
                         <div class="col-md-6">
                             <h1 class="dashboard-title">
                                 <i class="fas fa-tachometer-alt me-2"></i>
-                                <span data-translate="dashboard.title">Dashboard Meteorológico</span>
+                                <span data-translate="dashboard.title">Panel Meteorológico</span>
                             </h1>
                             <p class="dashboard-subtitle" data-translate="dashboard.subtitle">
-                                Datos en tiempo real y predicciones deportivas
+                                Basado en datos abiertos de la NASA
                             </p>
                         </div>
                         <div class="col-md-6 text-md-end">
                             <div class="datetime-display">
                                 <div class="current-time" id="current-time">--:--:--</div>
-                                <div class="current-date" id="current-date">-- -- ----</div>
+                                <!---  <div class="current-date" id="current-date">-- -- ----</div>  -->
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Weather Data & Map Row -->
-                <div class="row mt-4">
-                    <!-- Div izquierdo: Datos meteorológicos -->
-                    <div class="col-lg-6 mt-4">
-                        <div class="weather-data-panel">
-                            <h3 class="panel-title">
-                                <i class="fas fa-cloud-sun me-2"></i>
-                                <span data-translate="weather.current">Condiciones Actuales</span>
-                            </h3>
-                            <!-- Location Input -->
-                            <form class="row g-3 align-items-end mb-4">
-                                <div class="col-md-3">
-                                    <label for="q" class="form-label">Ubicación</label>
-                                    <input type="search" minlength="3" required class="form-control"
-                                        id="location-search" name="location-search" placeholder="Ej: Buenos Aires, AR"
-                                        autocomplete="off" />
+                <div class="row mt-4 d-flex justify-content-center">
+
+                    <div class="row mt-0 p-0">
+                        <div class="col-lg-6 mt-4">
+
+                            <div class="weather-data-panel">
+                                <h3 class="panel-title">
+                                    <i class="fas fa-cloud-sun me-2"></i>
+                                    <span data-translate="weather.current">Condiciones Actuales</span>
+                                </h3>
+                                <!-- Location Input -->
+                                <form class="form-map">
+                                    <div class="col-md-3 w-100">
+                                        <label for="q" class="form-label">Ubicación</label>
+                                        <input type="search" minlength="3" required class="form-control"
+                                            id="location-search" name="location-search"
+                                            placeholder="Ej: Buenos Aires, AR" autocomplete="off" />
+                                    </div>
+                                    <div class="col-md-3 w-100 d-flex justify-content-center align-items-center gap-2">
+                                        <div class="inputsDashboard d-flex justify-content-center gap-2 w-100">
+                                            <div class="">
+                                                <label for="datoFecha" class="form-label">Fecha</label>
+                                                <input type="date" required class="form-control fecha-input"
+                                                    id="datoFecha" name="datoFecha" />
+                                            </div>
+                                            <div class="">
+                                                <label for="datoHora" class="form-label">Hora</label>
+                                                <input type="time" required class="form-control hora-input"
+                                                    id="datoHora" name="datoHora" />
+                                            </div>
+                                        </div>
+                                        <div class="searchBtn w-100">
+                                            <label class="form-label" for="">Buscar</label>
+                                            <button type="button" class="btn btn-primary btn-form" id="linkBus">
+                                                <i class="fas fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="w-75">
+
+                                    </div>
+                                </form>
+
+                                <!-- API Status Badge -->
+                                <div class="api-status mb-3" id="api-status">
+                                    <span class="badge bg-secondary">
+                                        <i class="fas fa-satellite me-1"></i>
+                                        Conectando a APIs...
+                                    </span>
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="datoFecha" class="form-label">Fecha</label>
-                                    <input type="date" required class="form-control" id="datoFecha" name="datoFecha" />
+
+                                <!-- Weather Data Grid -->
+                                <div class="weather-grid">
+                                    <div class="weather-item">
+                                        <div class="weather-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="weather-info">
+                                            <span class="weather-label" data-translate="weather.latitude">Latitud</span>
+                                            <span class="weather-value" id="current-latitude">--°</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="weather-item">
+                                        <div class="weather-icon">
+                                            <i class="fas fa-map-marker-alt"></i>
+                                        </div>
+                                        <div class="weather-info">
+                                            <span class="weather-label"
+                                                data-translate="weather.longitude">Longitud</span>
+                                            <span class="weather-value" id="current-longitude">--°</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="weather-item">
+                                        <div class="weather-icon">
+                                            <i class="fas fa-wind"></i>
+                                        </div>
+                                        <div class="weather-info">
+                                            <span class="weather-label" data-translate="weather.wind">Viento</span>
+                                            <span class="weather-value" id="current-wind">-- km/h</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="weather-item">
+                                        <div class="weather-icon">
+                                            <i class="fas fa-tint"></i>
+                                        </div>
+                                        <div class="weather-info">
+                                            <span class="weather-label" data-translate="weather.humidity">Humedad</span>
+                                            <span class="weather-value" id="current-humidity">--%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="weather-item">
+                                        <div class="weather-icon">
+                                            <i class="fas fa-cloud-rain"></i>
+                                        </div>
+                                        <div class="weather-info">
+                                            <span class="weather-label" data-translate="weather.rain_probability">Prob.
+                                                Lluvia</span>
+                                            <span class="weather-value" id="rain-probability">--%</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="weather-item">
+                                        <div class="weather-icon">
+                                            <i class="fas fa-thermometer-half"></i>
+                                        </div>
+                                        <div class="weather-info">
+                                            <span class="weather-label"
+                                                data-translate="weather.temperature">Temperatura</span>
+                                            <span class="weather-value" id="current-temperature">--°C</span>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
-                                <div class="col-md-3">
-                                    <label for="datoHora" class="form-label">Hora</label>
-                                    <input type="time" required class="form-control" id="datoHora" name="datoHora" />
+
+                                <div class="d-flex align-items-center flex-row-reverse gap-3 pt-4">
+                                    <div class="botonesExportar d-flex flex-column gap-2">
+                                        <div class="w-100">
+                                            <button id="export-json" class="w-100 btn btn-success btn-sm exportbtn">
+                                                <i class="fas fa-download me-1"></i>
+                                                <p>JSON</p>
+                                            </button>
+                                        </div>
+                                        <div class="w-100">
+                                            <button id="export-csv" class="w-100 btn btn-success btn-sm exportbtn">
+                                                <i class="fas fa-file-csv me-1"></i>
+                                                <p>CSV</p>
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="alert alert-info mb-0">
+                                        <i class="fas fa-info-circle me-2"></i>
+                                        <strong data-translate="warning.accuracy">Atencion</strong>
+                                        <span data-translate="warning.message">
+                                            El archivo JSON contiene los datos estructurados para uso técnico o
+                                            integración con aplicaciones, mientras que el CSV es compatible con Excel,
+                                            Google Sheets u otros programas de análisis.
+                                        </span>
+                                    </div>
                                 </div>
-                                <div class="col-md-3 d-grid">
-                                    <button type="button" class="btn btn-primary" id="linkBus">
-                                        <i class="fas fa-search"></i>
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-lg-6 mt-4 p-0">
+                            <div class="map-panel">
+                                <h3 class="panel-title">
+                                    <i class="fas fa-map me-2"></i>
+                                    <span data-translate="map.interactive" role="application">Mapa Interactivo</span>
+                                </h3>
+                                <div id="interactive-map" class="interactive-map"></div>
+                                <div class="map-controls mt-2">
+                                    <small class="text-white" data-translate="map.instructions">
+                                        Busca una ubicación o arrastra el marcador para actualizar los datos
+                                    </small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Sports & NASA Prediction Row -->
+                    <div class="row mt-4 p-0">
+                        <!-- Div izquierdo: Consulta deportes -->
+                        <div class="col-lg-6 mt-4">
+                            <div class="sports-panel">
+                                <h3 class="panel-title">
+                                    <i class="fas fa-running me-2"></i>
+                                    <span data-translate="sports.analysis">Análisis Deportivo</span>
+                                </h3>
+
+                                <div class="sports-form">
+                                    <div class="form-group mb-3">
+                                        <label for="sport-select" class="form-label" data-translate="sports.select">
+                                            Seleccionar Deporte:
+                                        </label>
+                                        <select id="sport-select" class="form-select">
+                                            <option value="futbol" data-translate="sports.football">Fútbol</option>
+                                            <option value="tenis" data-translate="sports.tennis">Tenis</option>
+                                            <option value="ciclismo" data-translate="sports.cycling">Ciclismo</option>
+                                            <option value="natacion" data-translate="sports.swimming">Natación</option>
+                                            <option value="running" data-translate="sports.running">Running</option>
+                                            <option value="golf" data-translate="sports.golf">Golf</option>
+                                        </select>
+                                    </div>
+
+
+
+                                    <button id="analyze-sport" class="btn btn-success w-100">
+                                        <i class="fas fa-chart-line me-2"></i>
+                                        <span data-translate="sports.analyze">Analizar Condiciones</span>
                                     </button>
                                 </div>
-                            </form>
 
-                            <!-- API Status Badge -->
-                            <div class="api-status mb-3" id="api-status">
-                                <span class="badge bg-secondary">
-                                    <i class="fas fa-satellite me-1"></i>
-                                    Conectando a APIs...
-                                </span>
-                            </div>
-
-                            <!-- Weather Data Grid -->
-                            <div class="weather-grid">
-                                <div class="weather-item">
-                                    <div class="weather-icon">
-                                        <i class="fas fa-map-marker-alt"></i>
+                                <!-- Sports Results -->
+                                <div id="sports-results" class="sports-results mt-3" style="display: none;">
+                                    <div class="sport-score">
+                                        <div class="score-circle">
+                                            <span id="sport-score-value">--</span>
+                                            <small>/100</small>
+                                        </div>
+                                        <div class="score-details">
+                                            <h5 id="sport-recommendation">--</h5>
+                                            <p id="sport-conditions">--</p>
+                                        </div>
                                     </div>
-                                    <div class="weather-info">
-                                        <span class="weather-label" data-translate="weather.latitude">Latitud</span>
-                                        <span class="weather-value" id="current-latitude">--°</span>
+
+                                    <div class="sport-tips">
+                                        <h6 data-translate="sports.recommendations">Recomendaciones:</h6>
+                                        <ul id="sport-tips-list">
+                                            <!-- Tips will be dynamically loaded -->
+                                        </ul>
                                     </div>
                                 </div>
-
-                                <div class="weather-item">
-                                    <div class="weather-icon">
-                                        <i class="fas fa-map-marker-alt"></i>
-                                    </div>
-                                    <div class="weather-info">
-                                        <span class="weather-label" data-translate="weather.longitude">Longitud</span>
-                                        <span class="weather-value" id="current-longitude">--°</span>
-                                    </div>
-                                </div>
-
-                                <div class="weather-item">
-                                    <div class="weather-icon">
-                                        <i class="fas fa-wind"></i>
-                                    </div>
-                                    <div class="weather-info">
-                                        <span class="weather-label" data-translate="weather.wind">Viento</span>
-                                        <span class="weather-value" id="current-wind">-- km/h</span>
-                                    </div>
-                                </div>
-
-                                <div class="weather-item">
-                                    <div class="weather-icon">
-                                        <i class="fas fa-tint"></i>
-                                    </div>
-                                    <div class="weather-info">
-                                        <span class="weather-label" data-translate="weather.humidity">Humedad</span>
-                                        <span class="weather-value" id="current-humidity">--%</span>
-                                    </div>
-                                </div>
-
-                                <div class="weather-item">
-                                    <div class="weather-icon">
-                                        <i class="fas fa-cloud-rain"></i>
-                                    </div>
-                                    <div class="weather-info">
-                                        <span class="weather-label" data-translate="weather.rain_probability">Prob.
-                                            Lluvia</span>
-                                        <span class="weather-value" id="rain-probability">--%</span>
-                                    </div>
-                                </div>
-
-                                <div class="weather-item">
-                                    <div class="weather-icon">
-                                        <i class="fas fa-thermometer-half"></i>
-                                    </div>
-                                    <div class="weather-info">
-                                        <span class="weather-label"
-                                            data-translate="weather.temperature">Temperatura</span>
-                                        <span class="weather-value" id="current-temperature">--°C</span>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-6">
-                                        <button id="export-json" class="btn btn-outline-primary btn-sm">
-                                            <i class="fas fa-download me-1"></i>
-                                            JSON
-                                        </button>
-                                    </div>
-                                    <div class="col-6 text-end">
-                                        <button id="export-csv" class="btn btn-outline-success btn-sm">
-                                            <i class="fas fa-file-csv me-1"></i>
-                                            CSV
-                                        </button>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Div derecho: Mapa interactivo -->
-                    <div class="col-lg-6 mt-4">
-                        <div class="map-panel">
-                            <h3 class="panel-title">
-                                <i class="fas fa-map me-2"></i>
-                                <span data-translate="map.interactive" role="application">Mapa Interactivo</span>
-                            </h3>
-                            <div id="interactive-map" class="interactive-map"></div>
-                            <div class="map-controls mt-2">
-                                <small class="text-white" data-translate="map.instructions">
-                                    Busca una ubicación o arrastra el marcador para actualizar los datos
-                                </small>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                        <!-- Div derecho: Gráfico NASA -->
+                        <!-- ======================= PANEL NASA POWER ======================= -->
+                        <div class="col-lg-6 mt-4 p-0">
+                            <div class="nasa-panel">
+                                <h3 class="panel-title">
+                                    <i class="fas fa-satellite me-2"></i>
+                                    <span data-translate="nasa.prediction">Evolución Histórica NASA</span>
+                                </h3>
 
-                <!-- Sports & NASA Prediction Row -->
-                <div class="row mt-4">
-                    <!-- Div izquierdo: Consulta deportes -->
-                    <div class="col-lg-6 mt-4">
-                        <div class="sports-panel">
-                            <h3 class="panel-title">
-                                <i class="fas fa-running me-2"></i>
-                                <span data-translate="sports.analysis">Análisis Deportivo</span>
-                            </h3>
-
-                            <div class="sports-form">
+                                <!-- Selector de variable -->
                                 <div class="form-group mb-3">
-                                    <label for="sport-select" class="form-label" data-translate="sports.select">
-                                        Seleccionar Deporte:
-                                    </label>
-                                    <select id="sport-select" class="form-select">
-                                        <option value="futbol" data-translate="sports.football">Fútbol</option>
-                                        <option value="tenis" data-translate="sports.tennis">Tenis</option>
-                                        <option value="ciclismo" data-translate="sports.cycling">Ciclismo</option>
-                                        <option value="natacion" data-translate="sports.swimming">Natación</option>
-                                        <option value="running" data-translate="sports.running">Running</option>
-                                        <option value="golf" data-translate="sports.golf">Golf</option>
+                                    <label for="nasa-variable" class="form-label">Variable a visualizar:</label>
+                                    <select id="nasa-variable" class="form-select">
+                                        <option value="T2M">Temperatura (°C)</option>
+                                        <option value="RH2M">Humedad (%)</option>
+                                        <option value="WS2M">Viento (km/h)</option>
+                                        <option value="PRECTOTCORR">Precipitación (mm)</option>
                                     </select>
                                 </div>
 
-
-
-                                <button id="analyze-sport" class="btn btn-success w-100">
-                                    <i class="fas fa-chart-line me-2"></i>
-                                    <span data-translate="sports.analyze">Analizar Condiciones</span>
-                                </button>
-                            </div>
-
-                            <!-- Sports Results -->
-                            <div id="sports-results" class="sports-results mt-3" style="display: none;">
-                                <div class="sport-score">
-                                    <div class="score-circle">
-                                        <span id="sport-score-value">--</span>
-                                        <small>/100</small>
-                                    </div>
-                                    <div class="score-details">
-                                        <h5 id="sport-recommendation">--</h5>
-                                        <p id="sport-conditions">--</p>
-                                    </div>
+                                <!-- Contenedor del gráfico -->
+                                <div class="chart-container">
+                                    <canvas id="nasa-chart"></canvas>
                                 </div>
-
-                                <div class="sport-tips">
-                                    <h6 data-translate="sports.recommendations">Recomendaciones:</h6>
-                                    <ul id="sport-tips-list">
-                                        <!-- Tips will be dynamically loaded -->
-                                    </ul>
+                                <div class="alert alert-info  mb-0"">
+                                    <i class=" fas fa-info-circle me-2"></i>
+                                    <strong data-translate="warning.accuracy">Atencion</strong>
+                                    <span data-translate="warning.message">
+                                        Los datos uitlizados para este grafico son extraidos de la API NASA POWER.
+                                        Si usa la API OPEN-METEO, no mostrara nada.
+                                    </span>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- Div derecho: Gráfico NASA -->
-                    <!-- ======================= PANEL NASA POWER ======================= -->
-                    <div class="col-lg-6 mt-4">
-                        <div class="nasa-panel">
-                            <h3 class="panel-title">
-                                <i class="fas fa-satellite me-2"></i>
-                                <span data-translate="nasa.prediction">Evolución Histórica NASA</span>
-                            </h3>
-
-                            <!-- Selector de variable -->
-                            <div class="form-group mb-3">
-                                <label for="nasa-variable" class="form-label">Variable a visualizar:</label>
-                                <select id="nasa-variable" class="form-select">
-                                    <option value="T2M">Temperatura (°C)</option>
-                                    <option value="RH2M">Humedad (%)</option>
-                                    <option value="WS2M">Viento (km/h)</option>
-                                    <option value="PRECTOTCORR">Precipitación (mm)</option>
-                                </select>
-                            </div>
-
-                            <!-- Contenedor del gráfico -->
-                            <div class="chart-container">
-                                <canvas id="nasa-chart" ></canvas>
+                        <div class="precision-warning mt-4 p-0">
+                            <div class="alert alert-info>
+                                <i class=" fas fa-info-circle me-2"></i>
+                                <strong data-translate="warning.accuracy">Precisión de datos:</strong>
+                                <span data-translate="warning.message">
+                                    Los datos hasta 5 días utilizan OpenMeteo (alta precisión).
+                                    Los datos a más de 5 días son estimaciones basadas en datos históricos de NASA.
+                                </span>
                             </div>
                         </div>
+
                     </div>
 
-
                 </div>
+            </div>
+
+            <!--  Mapa interactivo -->
 
 
 
 
-                <!-- Precision Warning -->
-                <div class="precision-warning mt-4">
-                    <div class="alert alert-info">
-                        <i class="fas fa-info-circle me-2"></i>
-                        <strong data-translate="warning.accuracy">Precisión de datos:</strong>
-                        <span data-translate="warning.message">
-                            Los datos hasta 5 días utilizan OpenMeteo (alta precisión).
-                            Los datos a más de 5 días son estimaciones basadas en datos históricos de NASA.
-                        </span>
-                    </div>
-                </div>
+
+
+
+            <!-- Precision Warning -->
+
 
             </div>
         </section>
 
         <!-- ======================= SOBRE NOSOTROS SECTION ======================= -->
-        <section id="sobre-nosotros" class="about-section">
+        <section id="acerca-de" class="about-section">
             <div class="container py-5">
                 <div class="row">
                     <div class="col-12">
                         <h2 class="section-title text-center mb-5">
                             <i class="fas fa-users me-2"></i>
-                            <span data-translate="about.title">Sobre Nosotros</span>
+                            <span data-translate="about.title">Acerca de</span>
                         </h2>
                     </div>
                 </div>
 
                 <div class="row align-items-center">
                     <div class="col-lg-6 mt-4">
-                        <h3 data-translate="about.resources">Alcance</h3>
+                        <h4 data-translate="about.resources">Impacto</h4>
                         <p data-translate="about.mission_text" id="just">
                             Esta página web sobre información metereológica surge del desafío "¿Lloverá en mi desfile",
                             donde se plantea la búsqueda de una solución a cuándo se quiere saber las condiciones
@@ -394,7 +440,7 @@
 
                         </p>
 
-                        <h4 data-translate="about.features">Características Principales:</h4>
+                        <h data-translate="about.features">Características Principales:</h>
                         <ul class="feature-list">
                             <li data-translate="about.feature1">
                                 <i class="fas fa-check me-2"></i>
@@ -438,25 +484,25 @@
                             </div>
                         </div>
 
-                        <div class="card"
+                        <!-- <div class="card"
                             onclick="window.open('https://disc.gsfc.nasa.gov/information/tools?title=Hydrology%20Time%20Series', '_blank')">
                             <div class="content">
                                 <h3>Data Rods for Hidrology</h3>
-                                <p>Datos hidrológicos históricos</p>
+                                <p>Datos hidrológicos históricos PRUEBA</p>
                             </div>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
 
             <!-- SECTION PARA EL EQUIPO -->
-            <section id="sobre-nosotros" class="about-section">
-                <div class="container py-5">
+            <section id="equipo" class="about-section">
+                <div class="container-general-equipo">
 
 
-                    <div class="row align-items-center">
-                        <div class="col-lg-6 mt-4">
-                            <h3 data-translate="about.us">Sobre el equipo</h3>
+                    <div class="container-equipo">
+                        <div class="container-equipo-texto">
+                            <h2 data-translate="about.us">Sobre el equipo</h2>
                             <p data-translate="about.us_text" id="just">
                                 Somos un grupo de seis estudiantes de la Universidad Nacional de la Patagonia Austral de
                                 la Ciudad de Caleta Olivia, Argentina. Actualmente estudiamos la carrera de Ingeniería
@@ -464,9 +510,9 @@
 
                         </div>
 
-                        <div class="col-lg-6 mt-4">
-                            <img src="./assets/img/equipo.png" alt="Foto de los integrantes del grupo" height="80">
-                            <small id="foto"> <br>Fotografía: Welliabe Roque </small>
+                        <div class="container-equipo-imagen">
+                            <img src="./assets/img/equipo.jpg" alt="Foto de los integrantes del grupo" height="300">
+                            <small id="foto" class="0"> <br>Fotografía: Welliabe Roque </small>
                         </div>
                     </div>
                 </div>

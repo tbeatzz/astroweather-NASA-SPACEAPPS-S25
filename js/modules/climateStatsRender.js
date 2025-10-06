@@ -46,11 +46,11 @@ export function renderClimateStats(stats) {
               </tr>
               <tr>
                 <td>Viento (km/h)</td>
-                <td>${fmt(wind.p10)}</td>
-                <td><strong>${fmt(wind.p50)}</strong></td>
-                <td>${fmt(wind.p90)}</td>
-                <td>${fmt(wind.mean)}</td>
-                <td>${fmt(wind.std)}</td>
+                <td>${fmt(Math.abs(wind.p10))}</td>
+                <td><strong>${fmt(Math.abs(wind.p50))}</strong></td>
+                <td>${fmt(Math.abs(wind.p90))}</td>
+                <td>${fmt(Math.abs(wind.mean))}</td>
+                <td>${fmt(Math.abs(wind.std))}</td>
               </tr>
             </tbody>
           </table>
