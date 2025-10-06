@@ -1,115 +1,116 @@
 # 🌌 AstroWeather
 
-**AstroWeather** es una aplicación web desarrollada para el **NASA Space Apps Challenge 2025**, que combina datos meteorológicos y científicos provenientes de **Open-Meteo** y **NASA POWER**.  
-Su objetivo es ofrecer un panel interactivo que muestre **condiciones actuales, estimaciones históricas y análisis deportivos personalizados** en función del clima.
+**AstroWeather** is a web application developed for the **NASA Space Apps Challenge 2025**, combining meteorological and scientific data from **Open-Meteo** and **NASA POWER**.  
+Its goal is to provide an interactive dashboard displaying **current conditions, historical estimates, and personalized sports analysis** based on weather data.
 
 ---
 
-## 🚀 Descripción General
+## 🚀 Overview
 
-AstroWeather permite consultar datos climáticos en cualquier punto del mapa y para cualquier fecha hasta **un año en el futuro**.  
-La aplicación selecciona automáticamente la fuente de datos más adecuada:
+AstroWeather allows users to query weather data for any point on the map and for any date up to **one year into the future**.  
+The app automatically selects the most suitable data source:
 
-- **Open-Meteo API** → para pronósticos de **0 a 5 días**.  
-- **NASA POWER API** → para estimaciones históricas a partir de **6 días o más**.
+- **Open-Meteo API** → for forecasts of **0 to 5 days**.  
+- **NASA POWER API** → for historical-based estimates from **6 days onward**.
 
-Además, incluye módulos adicionales:
-- **Análisis deportivo:** evalúa la conveniencia de practicar deportes al aire libre según las condiciones meteorológicas.  
-- **Visualización NASA:** genera gráficos históricos por variable (temperatura, humedad, viento o precipitación) para el día seleccionado.  
-- **Exportación de datos:** permite descargar los resultados en formato **JSON** o **CSV**.
-
----
-
-## 🧠 Procesamiento y Tratamiento de Datos
-
-Los datos recibidos de las APIs son procesados para garantizar precisión y coherencia:
-
-- Se excluyen las mediciones de los **últimos 5 días** por posible inconsistencia.  
-- Se calcula un **promedio histórico por día y mes** en distintos años para obtener estimaciones fiables.  
-- El viento se transforma a **km/h** y se normaliza en valor absoluto.  
-- Todos los resultados se redondean y se devuelven en un formato uniforme.
+Additionally, it includes the following modules:
+- **Sports Analysis:** evaluates the suitability of outdoor sports based on weather conditions.  
+- **NASA Visualization:** generates historical charts by variable (temperature, humidity, wind, or precipitation) for the selected day.  
+- **Data Export:** allows users to download results in **JSON** or **CSV** format.
 
 ---
 
-## 🧩 Estructura del Proyecto
+## 🧠 Data Processing and Treatment
+
+The data retrieved from the APIs is processed to ensure accuracy and consistency:
+
+- Measurements from the **last 5 days** are excluded due to potential inconsistencies.  
+- A **historical average by day and month** across multiple years is calculated for reliable estimates.  
+- Wind data is converted to **km/h** and normalized to absolute values.  
+- All results are rounded and returned in a standardized format.
+
+---
+
+## 🧩 Project Structure
 
 ```
 /astroweather
 │
-├── index.html                 # Estructura principal del dashboard
+├── index.html                 # Main dashboard structure
 ├── /js
-│   ├── main.js                # Script principal y punto de entrada
+│   ├── main.js                # Main script and entry point
 │   ├── /modules
-│   │   ├── apiSelector.js     # Lógica para elegir la API correcta
-│   │   ├── mapHandler.js      # Gestión del mapa interactivo
-│   │   ├── openMeteoService.js# Integración con Open-Meteo API
-│   │   ├── nasaPowerService.js# Integración con NASA POWER API (filtrado y media histórica)
-│   │   ├── dataRender.js      # Renderizado de datos principales en el dashboard
-│   │   ├── nasaGraph.js       # Gráfico histórico con Chart.js
-│   │   ├── sportAnalyzer.js   # Evaluación de condiciones deportivas
-│   │   └── utils.js           # Funciones auxiliares
+│   │   ├── apiSelector.js     # Logic to choose the correct API
+│   │   ├── mapHandler.js      # Interactive map management
+│   │   ├── openMeteoService.js# Integration with Open-Meteo API
+│   │   ├── nasaPowerService.js# Integration with NASA POWER API (filtering and historical averages)
+│   │   ├── dataRender.js      # Renders main dashboard data
+│   │   ├── nasaGraph.js       # Historical chart using Chart.js
+│   │   ├── sportAnalyzer.js   # Sports condition evaluation
+│   │   └── utils.js           # Helper functions
 │
 ├── /css
-│   └── style.css              # Estilos del dashboard
+│   └── style.css              # Dashboard styles
 │
-└── /assets                    # Imágenes, íconos y otros recursos
+└── /assets                    # Images, icons, and other resources
 ```
 
 ---
 
-## 🌍 APIs Utilizadas
+## 🌍 APIs Used
 
-
-| **Open-Meteo API** | Datos meteorológicos en tiempo real y predicciones a corto plazo. | [https://open-meteo.com](https://open-meteo.com) |
-| **NASA POWER API** | Datos históricos climáticos y energéticos (2000–2025). | [https://power.larc.nasa.gov](https://power.larc.nasa.gov) |
-
----
-
-## 🧮 Funcionalidades Clave
-
-- 🌡️ **Condiciones actuales**: temperatura, viento, humedad y probabilidad de lluvia.  
-- 🛰️ **Estimaciones históricas**: promedios diarios calculados a partir de 25 años de datos NASA.  
-- 🏃 **Análisis deportivo**: puntaje y recomendaciones por deporte según el clima.  
-- 📊 **Gráfico histórico NASA**: evolución de una variable meteorológica a lo largo de los años.  
-- 💾 **Exportación de datos**: descarga de resultados en JSON o CSV.  
-- 🗺️ **Mapa interactivo**: selección dinámica de ubicaciones por clic o búsqueda.  
-- 🌐 **Traducción dinámica** (opcional con Google Translate Widget).
+| **API** | **Description** | **Link** |
+|----------|------------------|-----------|
+| **Open-Meteo API** | Real-time weather data and short-term forecasts. | [https://open-meteo.com](https://open-meteo.com) |
+| **NASA POWER API** | Historical climate and energy data (2000–2025). | [https://power.larc.nasa.gov](https://power.larc.nasa.gov) |
 
 ---
 
-## ⚙️ Instalación y Ejecución
+## 🧮 Key Features
 
-1. Cloná el repositorio:
+- 🌡️ **Current Conditions:** temperature, wind, humidity, and rain probability.  
+- 🛰️ **Historical Estimates:** daily averages computed from 25 years of NASA data.  
+- 🏃 **Sports Analysis:** scores and recommendations for outdoor sports based on weather.  
+- 📊 **NASA Historical Chart:** evolution of a weather variable over the years.  
+- 💾 **Data Export:** download results in JSON or CSV.  
+- 🗺️ **Interactive Map:** dynamic location selection by click or search.  
+- 🌐 **Dynamic Translation** (optional via Google Translate Widget).
+
+---
+
+## ⚙️ Installation and Run
+
+1. Clone the repository:
    ```bash
-   git clone https://github.com/tuusuario/astroweather.git
+   git clone https://github.com/tbeatzz/astroweather-NASA-SPACEAPPS-S25.git
    cd astroweather
    ```
-2. Abrí el archivo `index.html` en tu navegador con Live Server (VS Code recomendado):
+2. Open the `index.html` file in your browser using Live Server (recommended with VS Code):
    ```bash
    npx live-server
    ```
-3. Listo 🚀: el dashboard se cargará con todas las funcionalidades activas.
+3. Done 🚀 — the dashboard will load with all features enabled.
 
 ---
 
-## 📦 Dependencias
+## 📦 Dependencies
 
-- [**Leaflet.js**](https://leafletjs.com/) – Mapa interactivo.  
-- [**Chart.js**](https://www.chartjs.org/) – Gráficos meteorológicos.  
-- [**Bootstrap 5**](https://getbootstrap.com/) – Diseño y componentes responsivos.  
-- [**Font Awesome**](https://fontawesome.com/) – Íconos del dashboard.
+- [**Leaflet.js**](https://leafletjs.com/) – Interactive map.  
+- [**Chart.js**](https://www.chartjs.org/) – Weather data charts.  
+- [**Bootstrap 5**](https://getbootstrap.com/) – Responsive design and UI components.  
+- [**Font Awesome**](https://fontawesome.com/) – Dashboard icons.
 
 ---
 
-## 🧑‍💻 Autores
+## 🧑‍💻 Authors
 
-Proyecto desarrollado por el equipo de **Algoritmo de guanaco** para el  
+Project developed by the **Algoritmo de Guanaco** team for the  
 **NASA Space Apps Challenge 2025**.  
 
-- 🧠 *Ignacio Morales Jumilla, Ignacio Leguizamon, Ivan Reales, Camila Aballay, Rosita Mansilla, Alan Titos* 
-
+- 🧠 *Ignacio Morales Jumilla, Ignacio Leguizamón, Iván Reales, Camila Aballay, Rosita Mansilla, Alan Titos*
 
 ---
-## 💫 Enlace del Proyecto
 
-🌐 (https://tuusuario.github.io/astroweather/)
+## 💫 Project Link
+
+🌐(http://astroweather.earth/)

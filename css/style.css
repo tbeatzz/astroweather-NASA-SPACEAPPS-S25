@@ -988,3 +988,6 @@ p {
     color: white;
     font-weight: 700;
 }
+.skiptranslate > iframe{
+ height: 0px;
+}
