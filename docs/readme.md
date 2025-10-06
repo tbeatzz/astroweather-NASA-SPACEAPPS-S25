@@ -106,7 +106,7 @@ Los datos recibidos de las APIs son procesados para garantizar precisión y cohe
 Proyecto desarrollado por el equipo de **Algoritmo de guanaco** para el  
 **NASA Space Apps Challenge 2025**.  
 
-- 🧠 *Ignacio, Morales Jumilla, Ivan Reales, Camila Aballay, Rosita Mansilla, Alan Titos* 
+- 🧠 *Ignacio Morales Jumilla, Ignacio Leguizamon, Ivan Reales, Camila Aballay, Rosita Mansilla, Alan Titos* 
 
 
 ---
